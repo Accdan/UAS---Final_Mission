@@ -51,16 +51,40 @@ class Eventd {
     }
 
     // Menghapus user
-    public function deleteEvent($eid) {
-        $query = "DELETE FROM eventz WHERE eid = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $eid);
+    // public function deleteEvent($eid) {
+    //     $query = "DELETE FROM eventz WHERE eid = ?";
+    //     $stmt = $this->db->prepare($query);
+    //     $stmt->bind_param("i", $eid);
 
-        if ($stmt->execute()) {
+    //     if ($stmt->execute()) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    public function deleteEvent($eid) {
+        // Ambil nama file foto
+        $querySelect = "SELECT poster FROM eventz WHERE eid = ?";
+        $stmtSelect = $this->db->prepare($querySelect);
+        $stmtSelect->bind_param("i", $eid);
+        $stmtSelect->execute();
+        $result = $stmtSelect->get_result();
+        $poster = $result->fetch_assoc()['poster'];
+    
+        // Hapus data dari tabel
+        $queryDelete = "DELETE FROM eventz WHERE eid = ?";
+        $stmtDelete = $this->db->prepare($queryDelete);
+        $stmtDelete->bind_param("i", $eid);
+    
+        if ($stmtDelete->execute()) {
+            // Hapus file foto jika ada
+            if ($poster && file_exists("src/" . $poster)) {
+                unlink("src/" . $poster);
+            }
             return true;
         }
         return false;
     }
+    
 
     // Mengambil user berdasarkan ID
     public function getEventById($eid) {

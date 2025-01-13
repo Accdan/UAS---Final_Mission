@@ -48,7 +48,7 @@ function displayImage($image) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $newd['title']; ?></title>
+    <title><?php echo htmlspecialchars(strip_tags($newd['title'] ?? 'No Title Available')); ?></title>
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>

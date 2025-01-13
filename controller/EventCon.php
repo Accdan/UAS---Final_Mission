@@ -10,7 +10,7 @@ class EventCon{
         $this->partnercons = new Partners(); // Pastikan nama kelas model sesuai
     }
 
-    public function listEvent() {
+    public function listEvent() { //
         $partnerd = $this->partnercons->getAllPartner();
         $evend = $this->eventcons->getAllEvent(); // Memanggil metode getAllUser dari model
         include 'view/admin/addevent/list.php'; // Pastikan path file view benar
@@ -58,7 +58,7 @@ class EventCon{
     }
 
     public function delete($eid) {
-        $this->eventcons->deleteEvent($eid); // Memanggil metode deleteUser dari model
+        $this->eventcons->deleteEvent($eid); 
         header("Location: index.php?modul=event&fitur=list");
         exit;
     }

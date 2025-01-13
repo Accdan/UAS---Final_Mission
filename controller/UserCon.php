@@ -54,39 +54,6 @@ class UserCon {
             include 'view/admin/adduser/input.php'; // Pastikan path file view benar
         }
     }
-    // public function addUser() {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         // Ambil data dari form
-    //         $uname = $_POST['uname'] ?? null;
-    //         $password = $_POST['password'] ?? null;
-    //         $id = $_POST['id'] ?? null; // ID Role dipilih oleh pengguna
-    //         $create_at = date('Y-m-d H:i:s'); // Waktu pembuatan
-    
-    //         // Validasi input
-    //         if (empty($uname)) {
-    //             echo "Username tidak boleh kosong.";
-    //             return;
-    //         }
-    
-    //         if (empty($id)) {
-    //             echo "Role ID tidak valid.";
-    //             return;
-    //         }
-    //         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    //         // Panggil method untuk menambah user
-    //         $this->usercons->createUser($uname, $hashedPassword, $create_at, $id);
-    
-    //         // Redirect ke halaman daftar user
-    //         header("Location: index.php?modul=user&fitur=list");
-    //         exit;
-    //     } else {
-    //         // Ambil data roles dari model
-    //         $roles = $this->usercons->getRoles(); // Pastikan model sudah menyediakan fungsi ini
-    
-    //         // Tampilkan form input
-    //         include 'view/admin/adduser/input.php'; // Pastikan path file view benar
-    //     }
-    // }
     
 
     public function delete($uid) {
