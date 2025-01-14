@@ -54,7 +54,7 @@
                     <!-- Content -->
                     <div class="p-4 flex-grow">
                         <h2 class="text-xl font-semibold text-gray-900 mb-2 hover:text-blue-500">
-                            <?php echo htmlspecialchars(html_entity_decode($evenf['judul'])); ?>
+                            <?php echo $evenf['judul']; ?>
                         </h2>
                         <p class="text-gray-600">
                             <?php 
