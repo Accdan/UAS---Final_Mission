@@ -43,7 +43,7 @@
                     <!-- Image -->
                     <div class="sm:w-48 h-48 sm:h-32 flex-shrink-0">
                         <img 
-                            src="<?php echo $evenf['poster']; ?>" 
+                            src="<?php echo htmlspecialchars(html_entity_decode($evenf['poster'])); ?>" 
                             alt="Article thumbnail"
                             class="w-full h-full object-cover" 
                             style="max-width: 50%;"
@@ -54,19 +54,22 @@
                     <!-- Content -->
                     <div class="p-4 flex-grow">
                         <h2 class="text-xl font-semibold text-gray-900 mb-2 hover:text-blue-500">
-                            <?php echo $evenf['judul']; ?>
+                            <?php echo htmlspecialchars(html_entity_decode($evenf['judul'])); ?>
                         </h2>
                         <p class="text-gray-600">
                             <?php 
-                                echo strlen($evenf['isi']) > 250 
-                                    ? htmlspecialchars(strip_tags(substr($evenf['isi'], 0, 250))) . '...' 
-                                    : htmlspecialchars(strip_tags($evenf['isi'])); 
+                                // Decode entitas HTML dan potong isi jika panjang lebih dari 250 karakter
+                                $decodedIsi = html_entity_decode(strip_tags($evenf['isi']));
+                                echo strlen($decodedIsi) > 250 
+                                    ? htmlspecialchars(substr($decodedIsi, 0, 250)) . '...' 
+                                    : htmlspecialchars($decodedIsi); 
                             ?>
                         </p>
                     </div>
                 </a>
             </div>
         <?php endforeach; ?>
+        
 
         <!-- Pagination Links
         <div class="flex justify-center mt-6">

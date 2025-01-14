@@ -31,7 +31,7 @@
                     <!-- Judul Event -->
                     <div class="mb-4">
                         <label for="judul" class="block text-gray-700 text-sm font-bold mb-2">Judul:</label>
-                        <input type="text" id="judul" name="judul" 
+                        <input type="jeditor" id="judul" name="judul" 
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                             required value="<?php echo htmlspecialchars($evend['judul']); ?>">
                     </div>
@@ -111,49 +111,76 @@
 
                 <!-- JavaScript -->
                 <script>
-                    let isiEditor;
-                    ClassicEditor
-                        .create(document.querySelector('#editor'), {
-                            toolbar: [
-                                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
-                                'insertTable', 'uploadImage', '|', 'undo', 'redo'
-                            ]
-                        })
-                        .then(editor => {
-                            isiEditor = editor;
-                            // Set the initial content of the editor from PHP if available
-                            editor.setData('<?php echo addslashes($evend["isi"]); ?>');
-                        })
-                        .catch(error => {
-                            console.error(error);
-                        });
+    let judulEditor, isiEditor;
 
-                    // Handle form submission and send CKEditor content to hidden input field
-                    const form = document.querySelector('form');
-                    const isiHiddenInput = document.querySelector('#isiHidden');
-                    form.addEventListener('submit', () => {
-                        isiHiddenInput.value = isiEditor.getData();
-                    });
+    // Inisialisasi CKEditor untuk judul
+    ClassicEditor
+        .create(document.querySelector('#judul'), {
+            toolbar: ['bold', 'italic', 'link'],
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' }
+                ]
+            }
+        })
+        .then(editor => {
+            judulEditor = editor;
+            editor.setData('<?php echo addslashes($evend["judul"]); ?>');
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
-                    // Fungsi untuk preview gambar baru jika dipilih
-                    function previewImage() {
-                        const file = document.getElementById('poster').files[0];
-                        const preview = document.getElementById('posterPreview');
-                        
-                        if (file) {
-                            const reader = new FileReader();
-                            
-                            reader.onload = function(e) {
-                                preview.src = e.target.result;
-                                preview.style.display = 'block'; // Menampilkan preview
-                            };
-                            
-                            reader.readAsDataURL(file);
-                        } else {
-                            preview.style.display = 'none'; // Sembunyikan preview jika tidak ada gambar
-                        }
-                    }
-                </script>
+    // Inisialisasi CKEditor untuk isi
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            toolbar: [
+                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
+                'insertTable', 'uploadImage', '|', 'undo', 'redo'
+            ]
+        })
+        .then(editor => {
+            isiEditor = editor;
+            editor.setData('<?php echo addslashes($evend["isi"]); ?>');
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    // Handle form submission
+    const form = document.querySelector('form');
+    const isiHiddenInput = document.querySelector('#isiHidden');
+    const judulHiddenInput = document.createElement('input'); // Membuat input tersembunyi untuk judul
+    judulHiddenInput.type = 'hidden';
+    judulHiddenInput.name = 'judul';
+    form.appendChild(judulHiddenInput);
+
+    form.addEventListener('submit', () => {
+        // Masukkan data editor ke input tersembunyi
+        isiHiddenInput.value = isiEditor.getData();
+        judulHiddenInput.value = judulEditor.getData();
+    });
+
+    // Fungsi untuk preview gambar baru jika dipilih
+    function previewPoster() {
+        const file = document.getElementById('poster').files[0];
+        const preview = document.getElementById('posterPreview');
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block'; // Menampilkan preview
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none'; // Sembunyikan preview jika tidak ada gambar
+        }
+    }
+</script>
+
 
 </body>
 </html>

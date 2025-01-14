@@ -33,11 +33,11 @@
                         <h2 class="text-2xl font-bold mb-6 text-gray-800">Input Event</h2>
                         <form action="index.php?modul=event&fitur=input" method="POST" enctype="multipart/form-data">
                             <!-- Judul Event -->
-                            <div class="mb-4">
+                            <!-- <div class="mb-4">
                                 <label for="judul" class="block text-gray-700 text-sm font-bold mb-2">Judul:</label>
-                                <div id="judulEditor" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></div>
+                                <div id="jeditor" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></div>
                                 <textarea id="judulHidden" name="judul" class="hidden"></textarea>
-                            </div>
+                            </div> -->
 
                             <!-- Poster Event -->
                             <div class="mb-4">
@@ -50,11 +50,22 @@
                             </div>
 
                             <!-- Isi Event -->
+                            <!-- Judul Event -->
+                            <div class="mb-4">
+                                <label for="judul" class="block text-gray-700 text-sm font-bold mb-2">Judul:</label>
+                                <div id="judulEditor" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></div>
+                                <!-- Hidden Input to Store Judul -->
+                                <textarea id="judulHidden" name="judul" class="hidden"></textarea>
+                            </div>
+
+                            <!-- Isi Event -->
                             <div class="mb-4">
                                 <label for="isi" class="block text-gray-700 text-sm font-bold mb-2">Isi:</label>
-                                <div id="editor" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></div>
+                                <div id="isiEditor" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></div>
+                                <!-- Hidden Input to Store Isi -->
                                 <textarea id="isiHidden" name="isi" class="hidden"></textarea>
                             </div>
+
 
                             <!-- Partner Event -->
                             <div class="mb-4">
@@ -93,43 +104,44 @@
 
 <!-- JavaScript -->
 <script>
-    // CKEditor untuk Judul
-    let judulEditor;
-    ClassicEditor
-        .create(document.querySelector('#judulEditor'), {
-            toolbar: ['bold', 'italic', 'link']
-        })
-        .then(editor => {
-            judulEditor = editor;
-        })
-        .catch(error => {
-            console.error(error);
-        });
-
-    // CKEditor untuk Isi Event
-    let isiEditor;
-    ClassicEditor
-        .create(document.querySelector('#editor'), {
-            toolbar: [
-                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
-                'insertTable', 'uploadImage', '|', 'undo', 'redo'
-            ]
-        })
-        .then(editor => {
-            isiEditor = editor;
-        })
-        .catch(error => {
-            console.error(error);
-        });
-
-    // Sinkronkan data CKEditor ke textarea tersembunyi saat form disubmit
-    const form = document.querySelector('form');
-    const judulHidden = document.querySelector('#judulHidden');
-    const isiHidden = document.querySelector('#isiHidden');
-    form.addEventListener('submit', () => {
-        judulHidden.value = judulEditor.getData();
-        isiHidden.value = isiEditor.getData();
+    // CKEditor untuk Judul Event
+let judulEditor;
+ClassicEditor
+    .create(document.querySelector('#judulEditor'), {
+        toolbar: ['bold', 'italic', 'link']
+    })
+    .then(editor => {
+        judulEditor = editor; // Menyimpan referensi editor judul
+    })
+    .catch(error => {
+        console.error(error);
     });
+
+// CKEditor untuk Isi Event
+let isiEditor;
+ClassicEditor
+    .create(document.querySelector('#isiEditor'), {
+        toolbar: [
+            'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
+            'insertTable', 'uploadImage', '|', 'undo', 'redo'
+        ]
+    })
+    .then(editor => {
+        isiEditor = editor; // Menyimpan referensi editor isi
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+// Sinkronkan data CKEditor ke textarea tersembunyi saat form disubmit
+const form = document.querySelector('form');
+const judulHidden = document.querySelector('#judulHidden');
+const isiHidden = document.querySelector('#isiHidden');
+
+form.addEventListener('submit', () => {
+    judulHidden.value = judulEditor.getData(); // Simpan data editor Judul ke textarea tersembunyi
+    isiHidden.value = isiEditor.getData(); // Simpan data editor Isi ke textarea tersembunyi
+});
 
     // Preview Poster Event
     const imageInput = document.getElementById('poster');
