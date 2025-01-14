@@ -111,6 +111,7 @@ switch ($modul) {
             case 'list': $controller->listNews(); break;
             case 'input': $controller->addNews(); break;
             case 'delete': $controller->delete($_GET['nid']); break;
+            case 'archive_delete': $controller->archive_delete($_GET['nid']); break;
             case 'edit': $controller->edit($_GET['nid']); break;
             case 'update': $controller->update(); break;
             case 'detail': $controller->detail($_GET['nid']); break;

@@ -93,20 +93,20 @@ $listevent = $controller->GetListAllEvent();
                     <figure class="w-96 h-96 sm:h-auto p-2 overflow-hidden flex justify-center items-center mx-auto sm:mx-0 aspect-square sm:aspect-auto">
                         <!-- <img 
                             src="<?php echo htmlspecialchars($event['poster']); ?>" 
-                            alt="<?php echo htmlspecialchars($event['judul']); ?>" 
+                            alt="<?php echo $event['judul']; ?>" 
                             class="object-center my-auto"
                             onerror="this.src='https://via.placeholder.com/800x600';"
                         /> -->
                         <a href="index.php?modul=event&fitur=detail&eid=<?php echo $event['eid']; ?>">
                                     <img 
                                         src="<?php echo htmlspecialchars($event['poster']); ?>" 
-                                        alt="<?php echo htmlspecialchars($event['judul']); ?>" 
+                                        alt="<?php echo $event['judul']; ?>" 
                                         class="object-center my-auto"
                                     />
                                 </a>
                     </figure>
                     <div class="flex-1 flex flex-col justify-center bg-white p-4 rounded-md">
-                        <h2 class="text-lg font-semibold text-gray-900"><?php echo htmlspecialchars($event['judul']); ?></h2>
+                        <h2 class="text-lg font-semibold text-gray-900"><?php echo $event['judul']; ?></h2>
                         <p class="text-sm text-gray-700">
                             <?php 
                                 echo strlen($event['isi']) > 100 

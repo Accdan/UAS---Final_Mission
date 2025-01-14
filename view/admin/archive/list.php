@@ -82,7 +82,7 @@
                                         <?php endif; ?>
                                     </td>
                                     <td class="py-2 px-4 text-center">
-                                        <a href="index.php?modul=news&fitur=delete&nid=<?php echo $newz['nid']; ?>" class="text-red-500 hover:underline">Delete</a>
+                                        <a href="index.php?modul=news&fitur=archive_delete&nid=<?php echo $newz['nid']; ?>" class="text-red-500 hover:underline">Delete</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

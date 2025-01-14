@@ -52,7 +52,11 @@ class NewsCon {
         header("Location: index.php?modul=news&fitur=list");
         exit;
     }
-
+    public function archive_delete($nid) {
+        $this->newscons->deleteNews($nid);
+        header("Location: index.php?modul=archive&fitur=list");
+        exit;
+    }
     public function edit($nid) {
         $newd = $this->newscons->getNewsById($nid);
         include 'view/admin/addnews/update.php';
